@@ -1,5 +1,8 @@
 // GET all contacts
 // route "/contacts"
+
+const { ContactModel } = require("../model/Contact.model");
+
 // access public
 const getContacts = (req, res)=>{
     res.end("All the contacts");
@@ -8,15 +11,25 @@ const getContacts = (req, res)=>{
  // POST contact
 // route "/contacts/create"
 // access public
-const createContact = (req, res)=>{
-    res.end("Create the contact");
+const createContact = async (req, res)=>{
+    try {
+        const {name, email, phone} = req.body;
+        console.log(req.body);
+        const contact = new ContactModel({name, email, phone});
+        console.log(contact);
+        await contact.save();
+        res.send({"message" : "New contact has been added", "contact" : contact });
+    } catch (error) {
+        res.send({"message" : "Something went wrong", "error" : error.message});
+    }
  }
 
  // GET the contact
 // route "/contact/:id"
 // access public
-const getContact = (req, res)=>{
-    res.end(`Get the contact for ${req.params.id}`);
+const getContact = async (req, res)=>{
+    
+    res.send(`Get the contact for ${req.params.id}`);
  }
 
  // UPDATE contact

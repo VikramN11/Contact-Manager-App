@@ -5,12 +5,12 @@ const contactRouter = express.Router();
 
 contactRouter.get("/", getContacts);
 
-contactRouter.get("/create", createContact);
+contactRouter.post("/create", createContact);
 
 contactRouter.get("/:id", getContact);
 
-contactRouter.get("/update/:id", updateContact);
+contactRouter.put("/update/:id", updateContact);
 
-contactRouter.get("/delete/:id", deleteContact);
+contactRouter.delete("/delete/:id", deleteContact);
 
 module.exports = contactRouter;
